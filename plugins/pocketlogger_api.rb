@@ -62,7 +62,7 @@ class PocketLogger < Slogger
         res=Net::HTTP.start(curl.host) { |http| http.get("#{curl.path}?#{curl.query}") }
         entries=JSON.parse(res.body)
         entries["list"].each do | k, v|
-            output+="#{v["title"]} // #{v["url"]} \n\n "
+            output+="* [#{v["title"]}](#{v["url"]})\n"
         end
     rescue Exception => e
       puts "Error getting #{posts_to_get} posts for #{username}".gsub!("  "," ")
