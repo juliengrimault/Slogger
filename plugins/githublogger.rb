@@ -76,7 +76,7 @@ class GithubLogger < Slogger
     }
 
     return false if output.strip == ""
-    entry = "## Github activity for #{Time.now.strftime("%m-%d-%Y")}:\n\n#{output}\n#{config['github_tags']}"
+    entry = "## Github activity:\n\n#{output}\n#{config['github_tags']}"
     DayOne.new.to_dayone({ 'content' => entry })
   end
 
