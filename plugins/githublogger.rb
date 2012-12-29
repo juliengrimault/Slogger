@@ -72,7 +72,10 @@ class GithubLogger < Slogger
           when "ForkEvent"
             output += "* Forked [#{action['repository']['owner']}/#{action['repository']['name']}](#{action['repository']['url']})\n"
             output += "    * #{action['repository']['description'].gsub(/\n/," ")}\n" unless action['repository']['description'].nil?
+          when "CreateEvent"
+            output += "* Created #{action['payload']['ref_type']} #{action['payload']['ref']} at [#{action['repository']['owner']}/#{action['repository']['name']}](#{action['repository']['url']})\n"
           end
+            
           
       else
         break
