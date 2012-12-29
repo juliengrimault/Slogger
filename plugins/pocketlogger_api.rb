@@ -50,17 +50,17 @@ class PocketLogger < Slogger
     passwd= config['pocket_passwd']
     posts_to_get=config['posts_to_get']
     tags = "\n\n#{config['pocket_tags']}\n" unless config['pocket_tags'] == ''
-    today = @timespan
-    yest=(Time.now-86400).to_i
+
     pkey="29ed8r79To6fuG8e9bA480GD77g5P586"
     @log.info("Getting Pocket #{posts_to_get} posts for #{username}")
     output = ''
-    burl="https://readitlaterlist.com/v2/get?username=#{username}&password=#{passwd}&state=#{posts_to_get}&since=#{yest}&apikey=#{pkey}"
+    burl="https://readitlaterlist.com/v2/get?username=#{username}&password=#{passwd}&state=#{posts_to_get}&since=#{@timespan.to_i}&apikey=#{pkey}"
     curl=URI.parse(burl)
 
     begin
         res=Net::HTTP.start(curl.host) { |http| http.get("#{curl.path}?#{curl.query}") }
         entries=JSON.parse(res.body)
+        @log.warn(entries)
         entries["list"].each do | k, v|
             output+="* [#{v["title"]}](#{v["url"]})\n"
         end
