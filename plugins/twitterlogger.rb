@@ -214,13 +214,17 @@ class TwitterLogger < Slogger
       else
         favs = ''
       end
-      unless tweets == ''
-        tweets = "## Tweets\n\n### Posts by @#{user} on #{Time.now.strftime('%m-%d-%Y')}\n\n#{tweets}#{tags}"
-        sl.to_dayone({'content' => tweets})
-      end
+
+      content = "Twitter activity for @#{user}\n\n"
       unless favs == ''
-        favs = "## Favorite Tweets\n\n### Favorites from @#{user} for #{Time.now.strftime('%m-%d-%Y')}\n\n#{favs}#{tags}"
-        sl.to_dayone({'content' => favs})
+        content += "*Favorites*\n#{favs}\n\n"
+      end
+      unless tweets == ''
+        content += "*Tweets*\n#{tweets}\n\n#{tags}"
+      end
+
+      unless favs == '' && tweets == ''
+        sl.to_dayone({'content' => content})
       end
     end
   end
