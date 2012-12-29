@@ -69,7 +69,11 @@ class GithubLogger < Slogger
               output += "* Started watching [#{action['repository']['owner']}/#{action['repository']['name']}](#{action['repository']['url']})\n"
               output += "    * #{action['repository']['description'].gsub(/\n/," ")}\n" unless action['repository']['description'].nil?
             end
+          when "ForkEvent"
+            output += "* Forked [#{action['repository']['owner']}/#{action['repository']['name']}](#{action['repository']['url']})\n"
+            output += "    * #{action['repository']['description'].gsub(/\n/," ")}\n" unless action['repository']['description'].nil?
           end
+          
       else
         break
       end
