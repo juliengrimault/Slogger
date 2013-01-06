@@ -49,7 +49,7 @@ class RdioLogger < Slogger
     content = generate_content(albums)
 
     sl = DayOne.new
-    sl.to_dayone({ 'content' => "Rdio Activity - Album#{albums.count > 1 ? "s" : ""} added to collection\n#{content}\n\n#{tags}"})
+    sl.to_dayone({ 'content' => "Rdio Activity - Album#{albums.count > 1 ? "s" : ""} added to collection\n\n#{content}\n\n#{tags}"})
   end
 
 private
